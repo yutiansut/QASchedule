@@ -30,6 +30,28 @@ QASchedule是为了实现一个可视化版本的job flow
 4. 你有一些待执行的任务， 形成一个rpc服务， 当远程调用的时候自动执行这个流程
 
 
+希望做成什么:
+
+
+这是一种模式, 基于@的
+
+
+```python
+@every(frequence='1hour')
+def do_1hour():
+    sumbit_event(event_type='x')
+@every(frequence='1tick')
+def do_every_tick()
+@every(frequence='event_driven', routing_key='x')
+def do_while_calling()
+```
+这是另外一种模式, 基于on_xxx
+
+```python
+class xxx(QAStrategy):
+    def on_bar():
+        pass
+```
 
 状态汇报协议：
 
