@@ -32,7 +32,7 @@ QASchedule是为了实现一个可视化版本的job flow
 
 希望做成什么:
 
-
+## 内部的定时任务
 这是一种模式, 基于@的
 
 
@@ -53,7 +53,16 @@ class xxx(QAStrategy):
         pass
 ```
 
-状态汇报协议：
+## 外部的定时任务
+
+基于celery beat, 实现心跳检查和一些定时的运维活动
+
+提供可视化界面和http接口
+
+
+
+
+## 状态汇报协议：
 
 
 ```json
@@ -67,7 +76,7 @@ class xxx(QAStrategy):
 }
 ```
 
-动态进程创建/指派
+## 动态进程创建/指派
 
 基于http的动态进程创建
 post: http://ip:port/job/new?content=xxx
