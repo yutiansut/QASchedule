@@ -66,3 +66,12 @@ class xxx(QAStrategy):
     "context": "xxxx"
 }
 ```
+
+动态进程创建/指派
+
+基于http的动态进程创建
+post: http://ip:port/job/new?content=xxx
+
+会自动在开启此服务的服务器的缓存位置: ~/.quantaxis/cache中创建一个随机uuid.py文件
+
+然后动态运行
