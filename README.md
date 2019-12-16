@@ -28,3 +28,19 @@ QASchedule是为了实现一个可视化版本的job flow
 3. 你有一个选股策略，在每个小时都对全市场进行扫描，选择出股票后进行一系列操作
 
 4. 你有一些待执行的任务， 形成一个rpc服务， 当远程调用的时候自动执行这个流程
+
+
+
+状态汇报协议：
+
+
+```json
+{
+    "source": "jobxxx",
+    "filepath": "xxxx",
+    "name" : "xxx",
+    "status": "xxxx",
+    "confirm": false,
+    "context": "xxxx"
+}
+```
