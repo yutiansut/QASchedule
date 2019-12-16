@@ -67,3 +67,8 @@ def do_task(shell_cmd):
     while p.poll() is None:
         line = p.stdout.readline()
         pass
+
+
+
+def submit_task(taskfile):
+    pass
