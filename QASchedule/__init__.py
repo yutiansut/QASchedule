@@ -28,12 +28,30 @@ class celeryconfig():
     result_serializer = 'json'
     accept_content = ['application/json']
     task_compression = 'gzip'
-    timezone = "Asia/Shanghai"  # 时区设置
+    timezone = "Asia/Shanghai"  #时区设置
+    result_backend = "rpc://"
     enable_utc = False
-    worker_hijack_root_logger = False  # celery默认开启自己的日志，可关闭自定义日志，不关闭自定义日志输出为空
-    result_expires = 60 * 60 * 24  # 存储结果过期时间（默认1天）
+    worker_hijack_root_logger = False  #celery默认开启自己的日志，可关闭自定义日志，不关闭自定义日志输出为空
+    result_expires = 60 * 60 * 24  #存储结果过期时间（默认1天）
 
+    imports = (
+        "QASchedule"
+    )
 
+    beat_schedule = {
+        'interval1': {
+            'task': 'QASchedule.min1_event',
+            'schedule': crontab(minute='*', hour='*')
+        },
+        'interval5': {
+            'task': 'QASchedule.min5_event',
+            'schedule': crontab(minute='*/5', hour='*')
+        },
+        'interval15': {
+            'task': 'QASchedule.min15_event',
+            'schedule': crontab(minute='*/15', hour='*')
+        },
+    }
 app = Celery('quantaxis_jobschedule')
 app.config_from_object(celeryconfig)
 
@@ -44,15 +62,14 @@ def callback(a, b, c, d, data):
         threading.Thread(do_task(data['cmd'])).start()
     except:
         pass
+
 def node(shell_cmd):
     """run shell
     Arguments:
         shell_cmd {[type]} -- [description]
     Node
-
     """
     node_id = uuid.uuid4()
-
     listener = subscriber_routing(host=eventmq_ip, port=eventmq_port, user=eventmq_username, password=eventmq_password,
                                   exchange='qaschedule', routing_key=str(node_id))
     listener.callback = callback
@@ -61,7 +78,6 @@ def node(shell_cmd):
 @app.task(bind=True)
 def standard_task(self):
     """这是一个标准的task组件
-
     用于schedule定时任务
     """
     pass
@@ -77,3 +93,14 @@ def do_task(shell_cmd):
 
 def submit_task(taskfile):
     pass
+
+@app.task(bind=True)
+def min1_event(self):
+    print("interval 1min")
+
+@app.task(bind=True)
+def min5_event(self):
+    print("interval 5min")
+@app.task(bind=True)
+def min15_event(self):
+    print("interval 15min")
