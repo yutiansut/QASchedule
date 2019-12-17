@@ -84,3 +84,19 @@ post: http://ip:port/job/new?content=xxx
 会自动在开启此服务的服务器的缓存位置: ~/.quantaxis/cache中创建一个随机uuid.py文件
 
 然后动态运行
+
+
+
+## 使用QASChedule以后
+
+QAEventMQ会产生一个新的exchange: QAEventTopic
+
+此Exchange为topic模式, 需要使用QAPUBSUB.consumer.subscriber_topic来订阅
+
+routing_key 
+
+- "#"  为监听所有事件
+- "*.event " 监听所有event事件
+- "1min.#" 监听所有1min事件
+- "5min.#" 监听所有5min事件
+- "15min.#" 监听所有15min事件
