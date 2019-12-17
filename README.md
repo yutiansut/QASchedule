@@ -87,7 +87,7 @@ post: http://ip:port/job/new?content=xxx
 
 
 
-## 使用QASChedule以后
+## 使用QASchedule以后
 
 QAEventMQ会产生一个新的exchange: QAEventTopic
 
@@ -100,3 +100,9 @@ routing_key
 - "1min.#" 监听所有1min事件
 - "5min.#" 监听所有5min事件
 - "15min.#" 监听所有15min事件
+
+直接调试: 
+
+```
+qaps_sub --model topic --exchange QAEventTopic --routing_key "#"
+```
