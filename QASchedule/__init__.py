@@ -16,8 +16,11 @@ from celery.schedules import crontab
 from qaenv import (eventmq_amqp, eventmq_ip, eventmq_password, eventmq_port,
                    eventmq_username, mongo_ip, mongo_port)
 from QAPUBSUB.consumer import subscriber, subscriber_routing
-
+from QAPUBSUB.producer import publisher, publisher_routing
 platforms.C_FORCE_ROOT = True  # 加上这一行
+
+
+publisher_R = publisher_routing(host=eventmq_ip, port= eventmq_port, exchange='QAEventRouting')
 
 
 class celeryconfig():
@@ -37,7 +40,7 @@ class celeryconfig():
     imports = (
         "QASchedule"
     )
-
+    
     beat_schedule = {
         'interval1': {
             'task': 'QASchedule.min1_event',
@@ -97,10 +100,14 @@ def submit_task(taskfile):
 @app.task(bind=True)
 def min1_event(self):
     print("interval 1min")
+    publisher_R.pub(json.dumps({'topic': '1min_event'}), routing_key='1min_event')
 
 @app.task(bind=True)
 def min5_event(self):
     print("interval 5min")
+    publisher_R.pub(json.dumps({'topic': '5min_event'}), routing_key='5min_event')
+
 @app.task(bind=True)
 def min15_event(self):
     print("interval 15min")
+    publisher_R.pub(json.dumps({'topic': '15min_event'}), routing_key='15min_event')
