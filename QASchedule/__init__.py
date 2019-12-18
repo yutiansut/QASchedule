@@ -111,3 +111,13 @@ def min5_event(self):
 def min15_event(self):
     print("interval 15min")
     publisher_R.pub(json.dumps({'topic': '15min_event'}), routing_key='15min.event')
+
+@app.task(bind=True)
+def min30_event(self):
+    print("interval 30min")
+    publisher_R.pub(json.dumps({'topic': '30min_event'}), routing_key='30min.event')
+
+@app.task(bind=True)
+def min60_event(self):
+    print("interval 60min")
+    publisher_R.pub(json.dumps({'topic': '60min_event'}), routing_key='60min.event')
