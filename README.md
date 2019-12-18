@@ -4,6 +4,7 @@ Schedule for job
 
 QASchedule 是为了做什么的?
 
+![image.png](http://pic.yutiansut.com/Frk8C_HjxTrYzlwT-J0UJMUSOx4h)
 
 很多时候, 我们的策略需要定时去执行一些任务, 比如 定时1小时来进行一次选股, 但是很多时候的策略执行的中间状态并不为人所知.
 
