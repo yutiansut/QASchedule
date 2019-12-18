@@ -12,7 +12,7 @@ except:
     from distutils.core import setup
 
 
-NAME = "quantaxis_schedule"
+NAME = "QASchedule"
 """
 名字，一般放你包的名字即可
 """
@@ -34,7 +34,7 @@ setup(
     name=NAME,
     version='1.0',
     description=DESCRIPTION,
-    long_description='publisher and subscriber',
+    long_description='signal and schedule for events',
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
